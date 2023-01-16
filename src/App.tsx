@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
 
-function App() {
+const App = () => {
+  const [timeRemaining, setTimeRemaining] = useState({
+    minutes: 15,
+    seconds: 0
+  });
+
+  const padTimeValue = (val: number) => val.toString().padStart(2, '0');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <section id="timer">
+        <div className="timer__bezel"></div>
+        <div className="timer__face"></div>
+        <div className="timer__content">
+          <span className="countdown__time-remaining">
+            <span id="time__mins">{padTimeValue(timeRemaining?.minutes)}</span>
+            <span>:</span>
+            <span id="time__secs">{padTimeValue(timeRemaining?.seconds)}</span>
+          </span>
+          <button className="countdown__button-start-stop">Start</button>
+          <button
+            className="countdown__button-settings"
+            aria-label="settings"
+          ></button>
+        </div>
+      </section>
+    </main>
   );
-}
+};
 
 export default App;
