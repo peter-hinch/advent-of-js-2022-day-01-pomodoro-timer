@@ -5,8 +5,8 @@
   font-style: normal;
   font-weight: 400;
   src: local('Bebas Neue - Book'),
-    url('./../STARTER-FILES/fonts/bebasneue-book-webfont.woff2') format('woff2'),
-    url('./../STARTER-FILES/fonts/bebasneue-book-webfont.woff') format('woff');
+    url('./assets/fonts/bebasneue-book-webfont.woff2') format('woff2'),
+    url('./assets/fonts/bebasneue-book-webfont.woff') format('woff');
   font-display: swap;
 }
 
@@ -113,5 +113,5 @@ button.countdown__button-settings {
   width: 24px;
   min-width: 24px;
   height: 24px;
-  background: url('./../STARTER-FILES/images/gear.svg');
+  background: url('./assets/images/gear.svg');
 }
