@@ -1,5 +1,5 @@
-import './App.css';
 import 'normalize.css';
+import './App.css';
 import { useState, useEffect } from 'react';
 
 const App = () => {
@@ -7,8 +7,13 @@ const App = () => {
     minutes: 15,
     seconds: 0
   });
+  const [timerRunning, setTimerRunning] = useState<boolean>(false);
 
   const padTimeValue = (val: number) => val.toString().padStart(2, '0');
+
+  useEffect(() => {
+    console.log('timerRunning:', timerRunning);
+  }, [timerRunning]);
 
   return (
     <main>
@@ -21,7 +26,12 @@ const App = () => {
             <span>:</span>
             <span id="time__secs">{padTimeValue(timeRemaining?.seconds)}</span>
           </span>
-          <button className="countdown__button-start-stop">Start</button>
+          <button
+            className="countdown__button-start-stop"
+            onClick={() => setTimerRunning(!timerRunning)}
+          >
+            {!timerRunning ? 'Start' : 'Stop'}
+          </button>
           <button
             className="countdown__button-settings"
             aria-label="settings"
