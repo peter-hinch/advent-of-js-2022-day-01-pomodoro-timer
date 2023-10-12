@@ -9,8 +9,12 @@ const App = () => {
 
   // Helper functions
   const convertSeconds = (value: number) => {
-    const minutes = (value / 60).toString().padStart(2, '0');
-    const seconds = (value % 60).toString().padStart(2, '0');
+    const minutes = Math.round(value / 60)
+      ?.toString()
+      .padStart(2, '0');
+    const seconds = Math.round(value % 60)
+      ?.toString()
+      .padStart(2, '0');
 
     return { minutes, seconds };
   };
@@ -19,7 +23,13 @@ const App = () => {
     (total / remaining) * 360;
 
   useEffect(() => {
-    console.log('timerRunning:', timerRunning);
+    let interval: ReturnType<typeof setInterval>;
+    if (timerRunning) {
+      interval = setInterval(() => {
+        setTimeRemaining((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
   }, [timerRunning]);
 
   return (
@@ -28,7 +38,7 @@ const App = () => {
         <div className="timer__bezel"></div>
         <div className="timer__face"></div>
         <div className="timer__content">
-          <span className="countdown__time-remaining">
+          <div className="countdown__time-remaining">
             <span id="time__mins">
               {convertSeconds(timeRemaining)?.minutes}
             </span>
@@ -36,7 +46,7 @@ const App = () => {
             <span id="time__secs">
               {convertSeconds(timeRemaining)?.seconds}
             </span>
-          </span>
+          </div>
           <button
             className="countdown__button-start-stop"
             onClick={() => setTimerRunning(!timerRunning)}
