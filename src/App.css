@@ -65,7 +65,7 @@ section#timer {
   align-items: center;
 }
 
-span.countdown__time-remaining {
+div.countdown__time-remaining {
   margin-bottom: 9px;
   color: #fff;
   font-family: 'Bebas Neue - Book', sans-serif;
