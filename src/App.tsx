@@ -9,7 +9,7 @@ const App = () => {
 
   // Helper functions
   const convertSeconds = (value: number) => {
-    const minutes = Math.round(value / 60)
+    const minutes = Math.floor(value / 60)
       ?.toString()
       .padStart(2, '0');
     const seconds = Math.round(value % 60)
@@ -20,7 +20,7 @@ const App = () => {
   };
 
   const calculateDegrees = (total: number, remaining: number) =>
-    (total / remaining) * 360;
+    Math.round((remaining / total) * 360);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -35,7 +35,16 @@ const App = () => {
   return (
     <main>
       <section id="timer">
-        <div className="timer__bezel"></div>
+        <div
+          className="timer__bezel"
+          data-degrees={calculateDegrees(settings, timeRemaining)}
+          style={{
+            background: `conic-gradient(#9d0000 0deg ${calculateDegrees(
+              settings,
+              timeRemaining
+            )}deg, #000 ${calculateDegrees(settings, timeRemaining)}deg 360deg)`
+          }}
+        ></div>
         <div className="timer__face"></div>
         <div className="timer__content">
           <div className="countdown__time-remaining">
