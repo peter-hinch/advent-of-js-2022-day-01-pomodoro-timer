@@ -6,6 +6,13 @@ For my submissions to Advent of JS, I have taken the approach of first completin
 
 The requirements for functionality can be viewed in the [README.md](./STARTER-FILES/README.md) included with the starter files.
 
+## Additional functionality
+
+While building I have considered the following as possible additions to functionality:
+
+- [ ] 'Pause' and 'Reset' buttons to replace 'Stop' button.
+- [ ] An additional setting for a rest duration between countdowns.
+
 Please feel free to check out my other Advent of JS repos:
 
 - Day 1 - Pomodoro Timer
