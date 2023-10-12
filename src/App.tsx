@@ -3,15 +3,20 @@ import './App.css';
 import { useState, useEffect } from 'react';
 
 const App = () => {
+  const [settings, setSettings] = useState<number>(900);
   const [timeRemaining, setTimeRemaining] = useState<number>(900);
   const [timerRunning, setTimerRunning] = useState<boolean>(false);
 
+  // Helper functions
   const convertSeconds = (value: number) => {
     const minutes = (value / 60).toString().padStart(2, '0');
     const seconds = (value % 60).toString().padStart(2, '0');
 
     return { minutes, seconds };
   };
+
+  const calculateDegrees = (total: number, remaining: number) =>
+    (total / remaining) * 360;
 
   useEffect(() => {
     console.log('timerRunning:', timerRunning);
