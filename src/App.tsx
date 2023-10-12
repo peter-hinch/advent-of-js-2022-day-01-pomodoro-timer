@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 const App = () => {
   const [settings, setSettings] = useState<number>(900);
-  const [timeRemaining, setTimeRemaining] = useState<number>(900);
+  const [timeRemaining, setTimeRemaining] = useState<number>(settings);
   const [timerRunning, setTimerRunning] = useState<boolean>(false);
 
   // Helper functions
@@ -24,13 +24,13 @@ const App = () => {
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (timerRunning) {
+    if (timerRunning && timeRemaining > 0) {
       interval = setInterval(() => {
         setTimeRemaining((prev) => prev - 1);
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [timerRunning]);
+  }, [timerRunning, timeRemaining]);
 
   return (
     <main>
