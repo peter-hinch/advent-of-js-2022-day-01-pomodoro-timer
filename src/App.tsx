@@ -28,6 +28,7 @@ const App = () => {
     total: number,
     remaining: number
   ) => {
+    // Note: stroke is only 50% of face diameter
     let perimeter = (Math.PI * diameter) / 2;
     let portion = (remaining / total) * perimeter;
     return `${portion?.toString()} ${perimeter?.toString()}`;
@@ -52,13 +53,18 @@ const App = () => {
           height="518"
           viewBox="0 0 100 100"
         >
-          <circle cx="50%" cy="50%" r="50%" fill="#000" />
+          <circle
+            cx="50%"
+            cy="50%"
+            r="50%"
+            fill={timeRemaining ? '#000' : '#9d0000'}
+          />
           <g transform="rotate(90, 50, 50)">
             <circle
               cx="50"
               cy="50"
               r="25"
-              stroke={timeRemaining ? '#09a65a' : '#9d0000'}
+              stroke="#09a65a"
               strokeDasharray={calculateDashArray(100, settings, timeRemaining)}
               strokeWidth="50"
             />
