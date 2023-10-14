@@ -29,9 +29,6 @@ section#timer {
 .timer__bezel {
   width: 100%;
   height: 100%;
-  transform: rotate(180deg);
-  /* background: conic-gradient(#9d0000 0deg 270deg, #000 270deg 360deg); */
-  border-radius: 50%;
 }
 
 .timer__face {

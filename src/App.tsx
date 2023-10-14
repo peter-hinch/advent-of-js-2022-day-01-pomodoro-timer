@@ -19,8 +19,19 @@ const App = () => {
     return { minutes, seconds };
   };
 
-  const calculateDegrees = (total: number, remaining: number) =>
-    Math.round((remaining / total) * 360);
+  // The coloured portion of the timer bezel is drawn with svg
+  // and uses the dash array property to draw a pie-chart style
+  // section
+  // Reference: https://sparkbox.com/foundry/how_to_code_an_SVG_pie_chart
+  const calculateDashArray = (
+    diameter: number,
+    total: number,
+    remaining: number
+  ) => {
+    let perimeter = (Math.PI * diameter) / 2;
+    let portion = (remaining / total) * perimeter;
+    return `${portion?.toString()} ${perimeter?.toString()}`;
+  };
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -35,16 +46,24 @@ const App = () => {
   return (
     <main>
       <section id="timer">
-        <div
+        <svg
           className="timer__bezel"
-          data-degrees={calculateDegrees(settings, timeRemaining)}
-          style={{
-            background: `conic-gradient(#9d0000 0deg ${calculateDegrees(
-              settings,
-              timeRemaining
-            )}deg, #000 ${calculateDegrees(settings, timeRemaining)}deg 360deg)`
-          }}
-        ></div>
+          width="518"
+          height="518"
+          viewBox="0 0 100 100"
+        >
+          <circle cx="50%" cy="50%" r="50%" fill="#000" />
+          <g transform="rotate(90, 50, 50)">
+            <circle
+              cx="50"
+              cy="50"
+              r="25"
+              stroke={timeRemaining ? '#09a65a' : '#9d0000'}
+              strokeDasharray={calculateDashArray(100, settings, timeRemaining)}
+              strokeWidth="50"
+            />
+          </g>
+        </svg>
         <div className="timer__face"></div>
         <div className="timer__content">
           <div className="countdown__time-remaining">
