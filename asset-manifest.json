@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5c304a0e.css",
+    "main.js": "/static/js/main.5db6b767.js",
+    "static/js/787.7b7ff061.chunk.js": "/static/js/787.7b7ff061.chunk.js",
+    "static/media/bebasneue-book-webfont.woff": "/static/media/bebasneue-book-webfont.ef7181612dcffaf529b4.woff",
+    "static/media/bebasneue-book-webfont.woff2": "/static/media/bebasneue-book-webfont.d0dafcc2eb3e497f02fd.woff2",
+    "static/media/gear.svg": "/static/media/gear.cd928be312ef66802522.svg",
+    "index.html": "/index.html",
+    "main.5c304a0e.css.map": "/static/css/main.5c304a0e.css.map",
+    "main.5db6b767.js.map": "/static/js/main.5db6b767.js.map",
+    "787.7b7ff061.chunk.js.map": "/static/js/787.7b7ff061.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5c304a0e.css",
+    "static/js/main.5db6b767.js"
+  ]
+}
