@@ -6,7 +6,7 @@ const App: React.FC = () => {
   const [settings, setSettings] = useState<{
     settingsOpen: boolean;
     time: number;
-  }>({ settingsOpen: false, time: 15 });
+  }>({ settingsOpen: false, time: 1200 });
   const [timeRemaining, setTimeRemaining] = useState<number>(settings?.time);
   const [timerRunning, setTimerRunning] = useState<boolean>(false);
 
