@@ -11,8 +11,19 @@ const App: React.FC = () => {
   const [timerRunning, setTimerRunning] = useState<boolean>(false);
 
   // Helper functions
-  const convertToSeconds = (mins: string, secs: string) =>
-    parseInt(mins) * 60 + parseInt(secs);
+  const convertToSeconds = (minutes: string, seconds: string) => {
+    const minutesInt = parseInt(minutes);
+    const secondsInt = parseInt(seconds);
+    let time = 0;
+
+    if (!isNaN(minutesInt)) {
+      time += minutesInt * 60;
+    }
+    if (!isNaN(secondsInt)) {
+      time += secondsInt;
+    }
+    return time;
+  };
 
   const convertFromSeconds = (value: number) => {
     const minutes = Math.floor(value / 60)
@@ -46,13 +57,17 @@ const App: React.FC = () => {
     setTimeRemaining(settings?.time);
   };
 
-  const handleSettingsClose = (minutes: string, seconds: string) => {
+  const handleSettingsSave = (minutes: string, seconds: string) => {
     let time = convertToSeconds(minutes, seconds);
     setSettings({
       settingsOpen: false,
       time: time
     });
     setTimeRemaining(time);
+  };
+
+  const handleSettingsCancel = () => {
+    setSettings((prevSettings) => ({ ...prevSettings, settingsOpen: false }));
   };
 
   useEffect(() => {
@@ -69,7 +84,10 @@ const App: React.FC = () => {
     <main>
       <section id="timer">
         {settings?.settingsOpen && (
-          <Settings handleClose={handleSettingsClose} />
+          <Settings
+            handleSave={handleSettingsSave}
+            handleCancel={handleSettingsCancel}
+          />
         )}
         {!timeRemaining && (
           <Modal text="Time's Up!" handleConfirm={handleModalConfirm} />
@@ -143,7 +161,10 @@ const Modal: React.FC<{ text: string; handleConfirm: Function }> = ({
   );
 };
 
-const Settings: React.FC<{ handleClose: Function }> = ({ handleClose }) => {
+const Settings: React.FC<{ handleSave: Function; handleCancel: Function }> = ({
+  handleSave,
+  handleCancel
+}) => {
   const [minutes, setMinutes] = useState<string>();
   const [seconds, setSeconds] = useState<string>();
 
@@ -176,7 +197,8 @@ const Settings: React.FC<{ handleClose: Function }> = ({ handleClose }) => {
         value={seconds?.toString()?.padStart(2, '0')}
         onChange={(event) => handleInputChange(event)}
       />
-      <button onClick={() => handleClose(minutes, seconds)}>Save</button>
+      <button onClick={() => handleSave(minutes, seconds)}>Save</button>
+      <button onClick={() => handleCancel()}>Cancel</button>
     </dialog>
   );
 };
