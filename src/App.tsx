@@ -174,17 +174,27 @@ const Settings: React.FC<{
   const [seconds, setSeconds] = useState<string>(secondsValue);
 
   const handleInputChange = (event: any) => {
-    const value = parseInt(event?.target?.value);
+    if (event?.target?.id?.includes('minutes')) {
+      setMinutes(event?.target?.value);
+    }
+    if (event?.target?.id?.includes('seconds')) {
+      setSeconds(event?.target?.value);
+    }
+  };
+
+  const handleInputBlur = (event: any) => {
     const inputMin = parseInt(event?.target?.min);
     const inputMax = parseInt(event?.target?.max);
+    let value = parseInt(event?.target?.value);
 
-    if (value >= inputMin && value <= inputMax) {
-      if (event?.target?.id?.includes('minutes')) {
-        setMinutes(event?.target?.value);
-      }
-      if (event?.target?.id?.includes('seconds')) {
-        setSeconds(event?.target?.value);
-      }
+    if (value < inputMin) value = inputMin;
+    if (value > inputMax) value = inputMax;
+
+    if (event?.target?.id?.includes('minutes')) {
+      setMinutes(value?.toString()?.padStart(2, '0'));
+    }
+    if (event?.target?.id?.includes('seconds')) {
+      setSeconds(value?.toString()?.padStart(2, '0'));
     }
   };
 
@@ -197,8 +207,10 @@ const Settings: React.FC<{
           min="0"
           max="60"
           step="1"
-          value={minutes?.toString()?.padStart(2, '0')}
+          value={minutes}
+          onFocus={(event) => event?.target?.select()}
           onChange={(event) => handleInputChange(event)}
+          onBlur={(event) => handleInputBlur(event)}
         />
         <span>:</span>
         <input
@@ -207,8 +219,10 @@ const Settings: React.FC<{
           min="0"
           max="59"
           step="1"
-          value={seconds?.toString()?.padStart(2, '0')}
+          value={seconds}
+          onFocus={(event) => event?.target?.select()}
           onChange={(event) => handleInputChange(event)}
+          onBlur={(event) => handleInputBlur(event)}
         />
       </div>
       <div className="dialog__button-group">
