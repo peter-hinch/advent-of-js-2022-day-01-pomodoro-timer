@@ -174,35 +174,43 @@ const Settings: React.FC<{
   const [seconds, setSeconds] = useState<string>(secondsValue);
 
   const handleInputChange = (event: any) => {
-    if (event?.target?.id?.includes('minutes')) {
-      setMinutes(event?.target?.value);
-    }
-    if (event?.target?.id?.includes('seconds')) {
-      setSeconds(event?.target?.value);
+    const value = parseInt(event?.target?.value);
+    const inputMin = parseInt(event?.target?.min);
+    const inputMax = parseInt(event?.target?.max);
+
+    if (value >= inputMin && value <= inputMax) {
+      if (event?.target?.id?.includes('minutes')) {
+        setMinutes(event?.target?.value);
+      }
+      if (event?.target?.id?.includes('seconds')) {
+        setSeconds(event?.target?.value);
+      }
     }
   };
 
   return (
     <dialog className="timer__modal timer__settings">
-      <input
-        id="settings__minutes"
-        type="number"
-        min="0"
-        max="60"
-        step="1"
-        value={minutes?.toString()?.padStart(2, '0')}
-        onChange={(event) => handleInputChange(event)}
-      />
-      <span>:</span>
-      <input
-        id="settings__seconds"
-        type="number"
-        min="0"
-        max="59"
-        step="1"
-        value={seconds?.toString()?.padStart(2, '0')}
-        onChange={(event) => handleInputChange(event)}
-      />
+      <div className="settings__time-adjuster">
+        <input
+          id="settings__minutes"
+          type="number"
+          min="0"
+          max="60"
+          step="1"
+          value={minutes?.toString()?.padStart(2, '0')}
+          onChange={(event) => handleInputChange(event)}
+        />
+        <span>:</span>
+        <input
+          id="settings__seconds"
+          type="number"
+          min="0"
+          max="59"
+          step="1"
+          value={seconds?.toString()?.padStart(2, '0')}
+          onChange={(event) => handleInputChange(event)}
+        />
+      </div>
       <div className="dialog__button-group">
         <button className="button__text" onClick={() => handleCancel()}>
           Cancel
