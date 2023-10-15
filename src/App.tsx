@@ -64,6 +64,7 @@ const App: React.FC = () => {
       time: time
     });
     setTimeRemaining(time);
+    setTimerRunning(false);
   };
 
   const handleSettingsCancel = () => {
