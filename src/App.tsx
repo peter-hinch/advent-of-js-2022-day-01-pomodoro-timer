@@ -7,12 +7,14 @@ const App: React.FC = () => {
     settingsOpen: boolean;
     time: number;
   }>({ settingsOpen: false, time: 15 });
-  const [modal, setModal] = useState();
   const [timeRemaining, setTimeRemaining] = useState<number>(settings?.time);
   const [timerRunning, setTimerRunning] = useState<boolean>(false);
 
   // Helper functions
-  const convertSeconds = (value: number) => {
+  const convertToSeconds = (mins: string, secs: string) =>
+    parseInt(mins) * 60 + parseInt(secs);
+
+  const convertFromSeconds = (value: number) => {
     const minutes = Math.floor(value / 60)
       ?.toString()
       .padStart(2, '0');
@@ -44,6 +46,15 @@ const App: React.FC = () => {
     setTimeRemaining(settings?.time);
   };
 
+  const handleSettingsClose = (minutes: string, seconds: string) => {
+    let time = convertToSeconds(minutes, seconds);
+    setSettings({
+      settingsOpen: false,
+      time: time
+    });
+    setTimeRemaining(time);
+  };
+
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (timerRunning && timeRemaining > 0) {
@@ -57,17 +68,20 @@ const App: React.FC = () => {
   return (
     <main>
       <section id="timer">
+        {settings?.settingsOpen && (
+          <Settings handleClose={handleSettingsClose} />
+        )}
         {!timeRemaining && (
           <Modal text="Time's Up!" handleConfirm={handleModalConfirm} />
         )}
         <div className="timer__content">
           <div className="countdown__time-remaining">
             <span id="time__mins">
-              {convertSeconds(timeRemaining)?.minutes}
+              {convertFromSeconds(timeRemaining)?.minutes}
             </span>
             <span>:</span>
             <span id="time__secs">
-              {convertSeconds(timeRemaining)?.seconds}
+              {convertFromSeconds(timeRemaining)?.seconds}
             </span>
           </div>
           <button
@@ -79,6 +93,12 @@ const App: React.FC = () => {
           <button
             className="countdown__button-settings"
             aria-label="settings"
+            onClick={() =>
+              setSettings((prevSettings) => ({
+                ...prevSettings,
+                settingsOpen: true
+              }))
+            }
           ></button>
         </div>
         <div className="timer__face"></div>
@@ -119,6 +139,44 @@ const Modal: React.FC<{ text: string; handleConfirm: Function }> = ({
       <button onClick={() => handleConfirm()} className="modal__button-dismiss">
         Okay
       </button>
+    </dialog>
+  );
+};
+
+const Settings: React.FC<{ handleClose: Function }> = ({ handleClose }) => {
+  const [minutes, setMinutes] = useState<string>();
+  const [seconds, setSeconds] = useState<string>();
+
+  const handleInputChange = (event: any) => {
+    if (event?.target?.id?.includes('minutes')) {
+      setMinutes(event?.target?.value);
+    }
+    if (event?.target?.id?.includes('seconds')) {
+      setSeconds(event?.target?.value);
+    }
+  };
+
+  return (
+    <dialog className="timer__modal timer__settings">
+      <input
+        id="settings__minutes"
+        type="number"
+        min="0"
+        max="60"
+        step="1"
+        value={minutes?.toString()?.padStart(2, '0')}
+        onChange={(event) => handleInputChange(event)}
+      />
+      <input
+        id="settings__seconds"
+        type="number"
+        min="0"
+        max="59"
+        step="1"
+        value={seconds?.toString()?.padStart(2, '0')}
+        onChange={(event) => handleInputChange(event)}
+      />
+      <button onClick={() => handleClose(minutes, seconds)}>Save</button>
     </dialog>
   );
 };
