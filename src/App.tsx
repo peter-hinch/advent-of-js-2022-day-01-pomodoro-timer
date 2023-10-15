@@ -85,6 +85,8 @@ const App: React.FC = () => {
       <section id="timer">
         {settings?.settingsOpen && (
           <Settings
+            minutesValue={convertFromSeconds(settings?.time)?.minutes}
+            secondsValue={convertFromSeconds(settings?.time)?.seconds}
             handleSave={handleSettingsSave}
             handleCancel={handleSettingsCancel}
           />
@@ -161,12 +163,14 @@ const Modal: React.FC<{ text: string; handleConfirm: Function }> = ({
   );
 };
 
-const Settings: React.FC<{ handleSave: Function; handleCancel: Function }> = ({
-  handleSave,
-  handleCancel
-}) => {
-  const [minutes, setMinutes] = useState<string>();
-  const [seconds, setSeconds] = useState<string>();
+const Settings: React.FC<{
+  minutesValue: string;
+  secondsValue: string;
+  handleSave: Function;
+  handleCancel: Function;
+}> = ({ minutesValue, secondsValue, handleSave, handleCancel }) => {
+  const [minutes, setMinutes] = useState<string>(minutesValue);
+  const [seconds, setSeconds] = useState<string>(secondsValue);
 
   const handleInputChange = (event: any) => {
     if (event?.target?.id?.includes('minutes')) {
