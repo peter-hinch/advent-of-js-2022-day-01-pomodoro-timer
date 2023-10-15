@@ -114,6 +114,12 @@ span#time__secs {
   text-align: left;
 }
 
+.dialog__button-group {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
 button {
   text-align: center;
   background: transparent;
@@ -122,8 +128,7 @@ button {
   border-image-width: 0;
 }
 
-button.countdown__button-start-stop,
-button.modal__button-dismiss {
+button.button__text {
   position: relative;
   left: 5px;
   margin: 32px 0;
@@ -136,7 +141,7 @@ button.modal__button-dismiss {
   text-transform: uppercase;
 }
 
-button.countdown__button-settings {
+button.button__settings-icon {
   display: block;
   width: 24px;
   min-width: 24px;

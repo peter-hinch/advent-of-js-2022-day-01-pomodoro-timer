@@ -106,13 +106,13 @@ const App: React.FC = () => {
             </span>
           </div>
           <button
-            className="countdown__button-start-stop"
+            className="button__text"
             onClick={() => setTimerRunning(!timerRunning)}
           >
             {!timerRunning ? 'Start' : 'Stop'}
           </button>
           <button
-            className="countdown__button-settings"
+            className="button__settings-icon"
             aria-label="settings"
             onClick={() =>
               setSettings((prevSettings) => ({
@@ -157,7 +157,7 @@ const Modal: React.FC<{ text: string; handleConfirm: Function }> = ({
   return (
     <dialog className="timer__modal">
       <p>{text}</p>
-      <button onClick={() => handleConfirm()} className="modal__button-dismiss">
+      <button onClick={() => handleConfirm()} className="button__text">
         Okay
       </button>
     </dialog>
@@ -193,6 +193,7 @@ const Settings: React.FC<{
         value={minutes?.toString()?.padStart(2, '0')}
         onChange={(event) => handleInputChange(event)}
       />
+      <span>:</span>
       <input
         id="settings__seconds"
         type="number"
@@ -202,8 +203,17 @@ const Settings: React.FC<{
         value={seconds?.toString()?.padStart(2, '0')}
         onChange={(event) => handleInputChange(event)}
       />
-      <button onClick={() => handleSave(minutes, seconds)}>Save</button>
-      <button onClick={() => handleCancel()}>Cancel</button>
+      <div className="dialog__button-group">
+        <button className="button__text" onClick={() => handleCancel()}>
+          Cancel
+        </button>
+        <button
+          className="button__text"
+          onClick={() => handleSave(minutes, seconds)}
+        >
+          Save
+        </button>
+      </div>
     </dialog>
   );
 };
