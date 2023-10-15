@@ -2,9 +2,13 @@ import 'normalize.css';
 import './App.css';
 import { useState, useEffect } from 'react';
 
-const App = () => {
-  const [settings, setSettings] = useState<number>(900);
-  const [timeRemaining, setTimeRemaining] = useState<number>(settings);
+const App: React.FC = () => {
+  const [settings, setSettings] = useState<{
+    settingsOpen: boolean;
+    time: number;
+  }>({ settingsOpen: false, time: 15 });
+  const [modal, setModal] = useState();
+  const [timeRemaining, setTimeRemaining] = useState<number>(settings?.time);
   const [timerRunning, setTimerRunning] = useState<boolean>(false);
 
   // Helper functions
@@ -34,6 +38,12 @@ const App = () => {
     return `${portion?.toString()} ${perimeter?.toString()}`;
   };
 
+  // Handler functions
+  const handleModalConfirm = () => {
+    setTimerRunning(false);
+    setTimeRemaining(settings?.time);
+  };
+
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (timerRunning && timeRemaining > 0) {
@@ -47,30 +57,9 @@ const App = () => {
   return (
     <main>
       <section id="timer">
-        <svg
-          className="timer__bezel"
-          width="518"
-          height="518"
-          viewBox="0 0 100 100"
-        >
-          <circle
-            cx="50%"
-            cy="50%"
-            r="50%"
-            fill={timeRemaining ? '#000' : '#9d0000'}
-          />
-          <g transform="rotate(90, 50, 50)">
-            <circle
-              cx="50"
-              cy="50"
-              r="25"
-              stroke="#09a65a"
-              strokeDasharray={calculateDashArray(100, settings, timeRemaining)}
-              strokeWidth="50"
-            />
-          </g>
-        </svg>
-        <div className="timer__face"></div>
+        {!timeRemaining && (
+          <Modal text="Time's Up!" handleConfirm={handleModalConfirm} />
+        )}
         <div className="timer__content">
           <div className="countdown__time-remaining">
             <span id="time__mins">
@@ -92,8 +81,45 @@ const App = () => {
             aria-label="settings"
           ></button>
         </div>
+        <div className="timer__face"></div>
+        <svg className="timer__bezel" viewBox="0 0 100 100">
+          <circle
+            cx="50"
+            cy="50"
+            r="50"
+            fill={timeRemaining ? '#000' : '#9d0000'}
+          />
+          <g transform="rotate(90, 50, 50)">
+            <circle
+              cx="50"
+              cy="50"
+              r="25"
+              stroke="#09a65a"
+              strokeDasharray={calculateDashArray(
+                100,
+                settings?.time,
+                timeRemaining
+              )}
+              strokeWidth="50"
+            />
+          </g>
+        </svg>
       </section>
     </main>
+  );
+};
+
+const Modal: React.FC<{ text: string; handleConfirm: Function }> = ({
+  text,
+  handleConfirm
+}) => {
+  return (
+    <dialog className="timer__modal">
+      <p>{text}</p>
+      <button onClick={() => handleConfirm()} className="modal__button-dismiss">
+        Okay
+      </button>
+    </dialog>
   );
 };
 

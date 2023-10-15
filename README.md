@@ -10,6 +10,7 @@ The requirements for functionality can be viewed in the [README.md](./STARTER-FI
 
 While building I have considered the following as possible additions to functionality:
 
+- [ ] Replace browser alert with an in app modal.
 - [ ] 'Pause' and 'Reset' buttons to replace 'Stop' button.
 - [ ] An additional setting for a rest duration between countdowns.
 
