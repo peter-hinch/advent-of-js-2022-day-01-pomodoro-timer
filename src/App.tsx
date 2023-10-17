@@ -203,10 +203,9 @@ const Settings: React.FC<{
       <div className="settings__time-adjuster">
         <input
           id="settings__minutes"
-          type="number"
-          min="0"
-          max="60"
-          step="1"
+          aria-label="minutes"
+          type="text"
+          pattern="^\d{2}$"
           value={minutes}
           onFocus={(event) => event?.target?.select()}
           onChange={(event) => handleInputChange(event)}
@@ -215,10 +214,9 @@ const Settings: React.FC<{
         <span>:</span>
         <input
           id="settings__seconds"
-          type="number"
-          min="0"
-          max="59"
-          step="1"
+          aria-label="seconds"
+          type="text"
+          pattern="^\d{2}$"
           value={seconds}
           onFocus={(event) => event?.target?.select()}
           onChange={(event) => handleInputChange(event)}
