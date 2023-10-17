@@ -174,6 +174,10 @@ const Settings: React.FC<{
   const [seconds, setSeconds] = useState<string>(secondsValue);
 
   const handleInputChange = (event: any) => {
+    const value = parseInt(event?.target?.value);
+
+    if (event?.target?.value?.length > 2 || isNaN(value)) return;
+
     if (event?.target?.id?.includes('minutes')) {
       setMinutes(event?.target?.value);
     }
@@ -205,6 +209,8 @@ const Settings: React.FC<{
           id="settings__minutes"
           aria-label="minutes"
           type="text"
+          min="0"
+          max="60"
           pattern="^\d{2}$"
           value={minutes}
           onFocus={(event) => event?.target?.select()}
@@ -216,6 +222,8 @@ const Settings: React.FC<{
           id="settings__seconds"
           aria-label="seconds"
           type="text"
+          min="0"
+          max="59"
           pattern="^\d{2}$"
           value={seconds}
           onFocus={(event) => event?.target?.select()}
