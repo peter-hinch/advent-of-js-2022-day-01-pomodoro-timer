@@ -17,6 +17,7 @@ While building I have considered the following as possible additions to function
 Please feel free to check out my other Advent of JS repos:
 
 - Day 1 - Pomodoro Timer
+- [Day 2 - E-Commerce Component](https://github.com/peter-hinch/advent-of-js-2022-day-02-ecommerce-component)
 
 I have also participated in Advent of CSS. You can check out these repos, here:
 
