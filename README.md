@@ -19,6 +19,8 @@ Please feel free to check out my other Advent of JS repos:
 - Day 1 - Pomodoro Timer
 - [Day 2 - E-Commerce Component](https://github.com/peter-hinch/advent-of-js-2022-day-02-ecommerce-component)
 - [Day 3 - Piano](https://github.com/peter-hinch/advent-of-js-2022-day-03-piano)
+- [Day 4 - Computer Keyboard](https://github.com/peter-hinch/advent-of-js-2022-day-04-computer-keyboard)
+- [Day 5 - Multi-select](https://github.com/peter-hinch/advent-of-js-2022-day-05-multiselect)
 
 I have also participated in Advent of CSS. You can check out these repos, here:
 
